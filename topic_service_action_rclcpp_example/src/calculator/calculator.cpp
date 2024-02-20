@@ -90,10 +90,7 @@ Calculator::~Calculator()
 {
 }
 
-float Calculator::calculate_given_formula(
-  const float & a,
-  const float & b,
-  const int8_t & operators)
+float Calculator::calculate_given_formula( const float & a, const float & b, const int8_t & operators)
 {
   float argument_result = 0.0;
   ArithmeticOperator::Request arithmetic_operator;
