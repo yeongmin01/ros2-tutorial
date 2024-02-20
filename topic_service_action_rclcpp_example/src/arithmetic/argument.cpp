@@ -18,17 +18,20 @@ Argument::Argument(const rclcpp::NodeOptions & node_options)
 {
   this->declare_parameter("qos_depth", 10);
   int8_t qos_depth = this->get_parameter("qos_depth").get_value<int8_t>();
+
   this->declare_parameter("min_random_num", 0.0);
   min_random_num_ = this->get_parameter("min_random_num").get_value<float>();
+
   this->declare_parameter("max_random_num", 9.0);
   max_random_num_ = this->get_parameter("max_random_num").get_value<float>();
+
   this->update_parameter();
 
   const auto QOS_RKL10V =
     rclcpp::QoS(rclcpp::KeepLast(qos_depth)).reliable().durability_volatile();
 
   arithmetic_argument_publisher_ =
-    this->create_publisher<ArithmeticArgument>("arithmetic_argument", QOS_RKL10V);
+    this->create_publisher<ArithmeticArgument>("arithmetic_argument", QOS_RKL10V); // <type>($"{topic name}", QoS)
 
   timer_ =
     this->create_wall_timer(1s, std::bind(&Argument::publish_random_arithmetic_arguments, this));
