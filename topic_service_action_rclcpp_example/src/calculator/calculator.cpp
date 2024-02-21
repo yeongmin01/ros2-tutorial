@@ -118,17 +118,14 @@ float Calculator::calculate_given_formula( const float & a, const float & b, con
   return argument_result;
 }
 
-rclcpp_action::GoalResponse Calculator::handle_goal(
-  const rclcpp_action::GoalUUID & uuid,
-  std::shared_ptr<const ArithmeticChecker::Goal> goal)
+rclcpp_action::GoalResponse Calculator::handle_goal(const rclcpp_action::GoalUUID & uuid, std::shared_ptr<const ArithmeticChecker::Goal> goal)
 {
   (void)uuid;
   (void)goal;
   return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
 }
 
-rclcpp_action::CancelResponse Calculator::handle_cancel(
-  const std::shared_ptr<GoalHandleArithmeticChecker> goal_handle)
+rclcpp_action::CancelResponse Calculator::handle_cancel(const std::shared_ptr<GoalHandleArithmeticChecker> goal_handle)
 {
   RCLCPP_INFO(this->get_logger(), "Received request to cancel goal");
   (void)goal_handle;

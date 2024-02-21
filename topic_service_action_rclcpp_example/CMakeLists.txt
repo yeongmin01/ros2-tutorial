@@ -43,15 +43,15 @@ ament_target_dependencies(operator
 # Install
 install(TARGETS
   argument
-  alculator
+  calculator
   checker
   operator
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY launch param
-  DESTINATION share/${PROJECT_NAME}
-)
+# install(DIRECTORY launch param
+#   DESTINATION share/${PROJECT_NAME}
+# )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
