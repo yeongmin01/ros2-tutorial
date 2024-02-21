@@ -14,4 +14,5 @@ float32 total_sum
 # Feedback
 
 string[] formula
+float32 now_sum
 

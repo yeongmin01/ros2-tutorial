@@ -40,8 +40,10 @@ class Checker(Node):
 
     # 액션 피드백 callback
     def get_arithmetic_action_feedback(self, feedback_msg):
-        action_feedback = feedback_msg.feedback.formula
-        self.get_logger().info('Action feedback: {0}'.format(action_feedback))
+        action_feedback_formula = feedback_msg.feedback.formula
+        action_feedback_now_sum = feedback_msg.feedback.now_sum
+        self.get_logger().info('Action feedback: {0}'.format(action_feedback_formula))
+        self.get_logger().info('Now sum: {0}'.format(action_feedback_now_sum))
 
     # 액션 결과값 callback
     def get_arithmetic_action_result(self, future):

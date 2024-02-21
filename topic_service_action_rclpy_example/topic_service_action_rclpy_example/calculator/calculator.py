@@ -106,6 +106,7 @@ class Calculator(Node):
         goal_sum = goal_handle.request.goal_sum
         while total_sum < goal_sum:
             total_sum += self.argument_result
+            feedback_msg.now_sum = total_sum
             feedback_msg.formula.append(self.argument_formula)
             self.get_logger().info('Feedback: {0}'.format(feedback_msg.formula))
             goal_handle.publish_feedback(feedback_msg)
