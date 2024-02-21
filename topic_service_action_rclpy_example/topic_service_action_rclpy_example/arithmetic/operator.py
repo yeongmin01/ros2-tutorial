@@ -20,6 +20,7 @@ class Operator(Node):
     def send_request(self):
         service_request = ArithmeticOperator.Request()
         service_request.arithmetic_operator = random.randint(1, 4)
+        self.get_logger().info('request operator : {}'.format(int(service_request.arithmetic_operator )))
         futures = self.arithmetic_service_client.call_async(service_request)
         return futures
 
@@ -27,8 +28,8 @@ class Operator(Node):
 def main(args=None):
     rclpy.init(args=args)
     operator = Operator()
-    future = operator.send_request()
     user_trigger = True
+    future = operator.send_request()
     try:
         while rclpy.ok():
             if user_trigger is True:
@@ -36,15 +37,15 @@ def main(args=None):
                 if future.done():
                     try:
                         service_response = future.result()
-                        operator.get_logger().info('Result: {}'.format(service_response.arithmetic_result))
                         
                     except Exception as e:  # noqa: B902
                         operator.get_logger().warn('Service call failed: {}'.format(str(e)))
                 else:
-                    operator.get_logger().info('Result: {}'.format(service_response.arithmetic_result))
-                    user_trigger = False
+                    operator.get_logger().info('Result: {}'.format(service_response))
+                
+                user_trigger = False
 
-            else:
+            else: 
                 input('Press Enter for next service call.')
                 future = operator.send_request()
                 user_trigger = True
