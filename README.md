@@ -32,4 +32,8 @@
 ```
 
 # lotto 
+```
+ros2 run lotto random_number 
+ros2 run lotto winning_checker 
 
+```
