@@ -14,11 +14,10 @@ class RandomNumber(Node):
         super().__init__('random_number')
         self.declare_parameter('qos_depth', 10)
         qos_depth = self.get_parameter('qos_depth').value
-        self.declare_parameter('min_random_num', 0)
+        self.declare_parameter('min_random_num', 1)
         self.min_random_num = self.get_parameter('min_random_num').value
         self.declare_parameter('max_random_num', 45)
         self.max_random_num = self.get_parameter('max_random_num').value
-        self.add_on_set_parameters_callback(self.update_parameter)
 
         QOS_RKL10V = QoSProfile(
             reliability=QoSReliabilityPolicy.RELIABLE,
@@ -36,11 +35,32 @@ class RandomNumber(Node):
     def publish_random_number(self):
 
         msg = Int32MultiArray()
-        
-        for i in range(7):
-            msg.data.append = int(random.randint(self.min_random_num, self.max_random_num))
+        random_number_list = []
+        for i in range(6):
+            number = int(random.randint(self.min_random_num, self.max_random_num))
 
+            while True:
+                if (random_number_list!= [] and (number in random_number_list)):
+                    number = int(random.randint(self.min_random_num, self.max_random_num))
+                break
+
+            random_number_list.append(number)
+
+        random_number_list.sort()
+        
+        extra_number = int(random.randint(self.min_random_num, self.max_random_num))
+        while True:
+            if (extra_number in random_number_list):
+                extra_number = int(random.randint(self.min_random_num, self.max_random_num))
+            break
+
+        random_number_list.append(extra_number)
+
+        self.get_logger().info('random_number: {0}'.format(random_number_list))
+
+        msg.data = random_number_list
         self.lotto_result_publisher.publish(msg)
+
 
 def main(args=None):
     rclpy.init(args=args)
